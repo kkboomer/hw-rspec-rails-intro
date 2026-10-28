@@ -2,7 +2,7 @@
 
 <div class="my-3">
   <%# Part 1 here: fill in the route and method this form submits with, and give it the id tmdb_form %>
-  <%= form_tag do %>
+  <%= form_tag search_tmdb_path, method: post, id: 'tmdb_form' do %>
     <%= label_tag 'movie_title_field', 'Movie Name', class: 'form-label' %>
     <%= text_field_tag 'title', nil, class: 'form-control', id: 'movie_title_field', placeholder: 'Manhunter' %>
     <%= label_tag 'movie_year_field', 'Release Year', class: 'form-label' %>
@@ -19,6 +19,7 @@
 
     <%= submit_tag 'Search', id: 'tmdb_submit', class: 'btn btn-warning' %>
     <%# Part 1 here: add a button that takes the user back to the movie list %>
+    <%link_to 'Back to Movie List', movies_path, class: 'btn btn-primary' %>
   <% end %>
 </div>
 

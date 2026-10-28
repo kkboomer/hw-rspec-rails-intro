@@ -28,7 +28,9 @@ class MoviesController < ApplicationController
   
     @movies = Movie.with_ratings(@ratings_to_show, @sort_by)
   end
-  
+  def search_tmdb
+    @movies = Movie.find_in_tmdb(params[:search_terms])
+  end
 
   # GET /movies/1 or /movies/1.json
   def show
