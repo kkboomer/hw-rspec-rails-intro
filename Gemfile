@@ -46,6 +46,7 @@ gem 'faraday', '~> 2.12'  # in main group; simplifies calling TMDb
 group :test do
   gem 'rails-controller-testing'  # assigns() and render_template in controller specs
   gem 'guard-rspec'               # automates re-running tests
+  gem 'webmock'
 end
 
 
