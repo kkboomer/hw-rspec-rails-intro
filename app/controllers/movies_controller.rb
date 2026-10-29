@@ -29,7 +29,17 @@ class MoviesController < ApplicationController
     @movies = Movie.with_ratings(@ratings_to_show, @sort_by)
   end
   def search_tmdb
-    @movies = Movie.find_in_tmdb(params[:search_terms])
+    if params[:title].blank?
+      flash[:warning] = "Fill in all fields"
+      redirect_to movies_path
+      return
+    end
+    @movies = Movie.find_in_tmdb(params)
+    if @movies.empty?
+      flash[:warning] = "No results found"
+      redirect_to movies_path
+      nil
+    end
   end
 
   # GET /movies/1 or /movies/1.json
