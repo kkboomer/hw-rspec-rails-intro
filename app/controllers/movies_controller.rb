@@ -29,16 +29,16 @@ class MoviesController < ApplicationController
     @movies = Movie.with_ratings(@ratings_to_show, @sort_by)
   end
   def search_tmdb
-    if params[:title].blank?
-      flash[:warning] = "Fill in all fields"
-      redirect_to movies_path
-      return
+    return unless params.key?(:title) || params.key?(:search_terms) || params.key?(:release_year) || params.key?(:commit)
+    title = params[:title] || params[:search_terms]
+    if title.blank?
+      flash[:warning] = "Please fill in all required fields!"
+      redirect_to search_tmdb_path and return
     end
     @movies = Movie.find_in_tmdb(params)
-    if @movies.empty?
-      flash[:warning] = "No results found"
-      redirect_to movies_path
-      nil
+    if @movies.blank?
+      flash[:warning] = "No movies found with given parameters!"
+      redirect_to search_tmdb_path and return
     end
   end
 
