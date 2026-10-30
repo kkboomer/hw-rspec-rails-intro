@@ -42,6 +42,16 @@ class MoviesController < ApplicationController
     end
   end
 
+  def add_movie
+    @movie = Movie.create!(
+      title: params[:title],
+      rating: params[:rating] || 'R',
+      release_date: params[:release_date],
+      description: params[:description]
+    )
+    flash[:notice] = "#{@movie.title} was successfully added to RottenPotatoes."
+    redirect_to search_tmdb_path
+  end
   # GET /movies/1 or /movies/1.json
   def show
   end

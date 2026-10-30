@@ -29,8 +29,8 @@ describe MoviesController, type: :controller do
     context 'when search terms are invalid or empty' do
       it 'redirects to the movies path with a warning flash message' do
         get :search_tmdb, params: { title: '' }
-        expect(response).to redirect_to(movies_path)
-        expect(flash[:warning]).to eq('Fill in all fields')
+        expect(response).to redirect_to(search_tmdb_path)
+        expect(flash[:warning]).to eq('Please fill in all required fields!')
       end
     end
 
@@ -38,8 +38,8 @@ describe MoviesController, type: :controller do
       it 'redirects to the movies path with a warning flash message' do
         allow(Movie).to receive(:find_in_tmdb).and_return([])
         get :search_tmdb, params: { title: 'NonexistentMovie123' }
-        expect(response).to redirect_to(movies_path)
-        expect(flash[:warning]).to eq('No results found')
+        expect(response).to redirect_to(search_tmdb_path)
+        expect(flash[:warning]).to eq('No movies found with given parameters!')
       end
     end
   end
